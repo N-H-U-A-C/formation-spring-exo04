@@ -36,6 +36,7 @@ public class CategoryController {
             return "categories/form";
         }
     }
+
     @GetMapping
     public String getAll(Model model) {
         model.addAttribute("categories", categoryService.getAll());

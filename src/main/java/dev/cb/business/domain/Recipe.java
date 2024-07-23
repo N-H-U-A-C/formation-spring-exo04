@@ -13,9 +13,9 @@ public class Recipe {
     private String name;
     //TODO check validation and list
     private List<String> ingredients;
-    @NotBlank(message = "Description may not be null or blank")
+    @NotBlank(message = "Instruction may not be null or blank")
     private String instruction;
-    @NotNull(message = "Category may not be null")
+//    @NotNull(message = "Category may not be null")
     private Category category;
 
     public Recipe() {

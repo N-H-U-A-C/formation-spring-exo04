@@ -17,4 +17,6 @@ public interface CategoryService {
     boolean update(Category recipe);
 
     boolean delete(UUID id);
+
+    List<Category> getCategories();
 }

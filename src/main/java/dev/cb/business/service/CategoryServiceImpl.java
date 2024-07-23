@@ -53,4 +53,9 @@ public class CategoryServiceImpl implements CategoryService {
         category.setName(updatedCategory.getName());
         category.setDescription(updatedCategory.getDescription());
     }
+
+    // getters and setters
+    public List<Category> getCategories() {
+        return categories;
+    }
 }

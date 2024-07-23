@@ -1,18 +1,26 @@
 package dev.cb.business.service;
 
 import dev.cb.business.domain.Recipe;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+@Service
 public class RecipeServiceImpl implements RecipeService {
 
+    private final CategoryService categoryService;
     private final List<Recipe> recipes;
 
-    public RecipeServiceImpl() {
+    public RecipeServiceImpl(CategoryService categoryService) {
+        this.categoryService = categoryService;
         this.recipes = new ArrayList<>();
+        this.recipes.add(new Recipe(
+                UUID.randomUUID(),
+                "Recette1",
+                Arrays.asList("Ingrédient1", "Ingrédient1", "Ingrédient1"),
+                "Instruction1",
+                categoryService.getCategories().get(0)
+                ));
     }
 
     // basic CRUD
