@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a category</title>
+    <link th:replace="~{homePage::bootstrapImport}">
+</head>
+<body>
+<nav th:replace="~{homePage::navbar}"></nav>
+<main class="container">
+    <h1>Add a category</h1>
+    <!--si id existant -> url update, sinon -> url save -->
+    <form th:action="${category.getId()} == null ? @{/categories/save} : @{/categories/update/{id}(id=${category.getId()})}"
+          method="post" th:object="${category}">
+        <input th:field="*{id}" hidden>
+        <div class="mb-3">
+            <label class="form-label" for="name">Category name</label>
+            <input class="form-control" type="text" id="name" th:field="*{name}">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="description">Category description</label>
+            <input class="form-control" type="text" id="description" th:field="*{description}">
+            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</main>
+</body>
+</html>

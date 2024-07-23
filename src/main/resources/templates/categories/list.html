@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List all categories</title>
     <link th:replace="~{homePage::bootstrapImport}">
 </head>
 <body>
@@ -22,10 +22,12 @@
         <td th:text="${category.getId()}"></td>
         <td th:text="${category.getName()}"></td>
         <td th:text="${category.getDescription()}"></td>
-<!--        <td><a th:href="@{/categories/{id}(id=${category.getId()})}" class="btn btn-outline-info">Detail</a></td>-->
+        <td><a th:href="@{/categories/update/{id}(id=${category.getId()})}" class="btn btn-outline-info">Update</a></td>
+        <td><a th:href="@{/categories/delete/{id}(id=${category.getId()})}" class="btn btn-outline-info">Delete</a></td>
         </tbody>
     </table>
     <p th:if="${categories.isEmpty()}">No category.</p>
+    <a th:href="@{/categories/save}" class="btn btn-outline-info">Add a category</a>
 </main>
 </body>
 </html>
