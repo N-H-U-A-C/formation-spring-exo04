@@ -1,18 +1,23 @@
 package dev.cb.business.service;
 
 import dev.cb.business.domain.Category;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final List<Category> categories;
 
     public CategoryServiceImpl() {
         this.categories = new ArrayList<>();
+        this.categories.add(new Category(UUID.randomUUID(), "First course", "First course"));
+        this.categories.add(new Category(UUID.randomUUID(), "Main course", "Main course"));
+        this.categories.add(new Category(UUID.randomUUID(), "Dessert", "Dessert"));
     }
 
     // basic CRUD
