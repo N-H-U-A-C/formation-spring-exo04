@@ -1,5 +1,6 @@
 package dev.cb.business.service;
 
+import dev.cb.business.domain.Category;
 import dev.cb.business.domain.Recipe;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,17 @@ public class RecipeServiceImpl implements RecipeService {
                 "Recette1",
                 Arrays.asList("Ingrédient1", "Ingrédient1", "Ingrédient1"),
                 "Instruction1",
-                categoryService.getCategories().get(0)
-                ));
+                categoryService.getCategories().get(0),
+                categoryService.getCategories().get(0).getId()
+        ));
     }
 
     // basic CRUD
     public boolean save(Recipe recipe) {
         recipe.setId(UUID.randomUUID());
+        recipe.setCategory(categoryService
+                .getById(recipe.getCategoryId())
+                .orElse(null));
         return recipes.add(recipe);
     }
 
@@ -56,6 +61,14 @@ public class RecipeServiceImpl implements RecipeService {
         recipe.setName(updatedRecipe.getName());
         recipe.setIngredients(updatedRecipe.getIngredients());
         recipe.setInstruction(updatedRecipe.getInstruction());
-        recipe.setCategory(updatedRecipe.getCategory());
+        recipe.setCategory(categoryService
+                .getById(updatedRecipe.getCategoryId())
+                .orElse(null));
+        recipe.setCategoryId(updatedRecipe.getCategoryId());
+    }
+
+    // getters and setters
+    public CategoryService getCategoryService() {
+        return categoryService;
     }
 }

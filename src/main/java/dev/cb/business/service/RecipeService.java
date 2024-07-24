@@ -17,4 +17,6 @@ public interface RecipeService {
     boolean update(Recipe recipe);
 
     boolean delete(UUID id);
+
+    CategoryService getCategoryService();
 }

@@ -1,7 +1,6 @@
 package dev.cb.controller;
 
 import dev.cb.business.domain.Recipe;
-import dev.cb.business.domain.Recipe;
 import dev.cb.business.service.RecipeService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -25,15 +24,17 @@ public class RecipeController {
     @GetMapping("/save")
     public String getSaveForm(Model model) {
         model.addAttribute("recipe", new Recipe());
+        model.addAttribute("categories", recipeService.getCategoryService().getCategories());
         return "recipes/form";
     }
 
     @PostMapping("/save")
-    public String save(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult) {
+    public String save(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             recipeService.save(recipe);
             return "redirect:/recipes";
         } else {
+            model.addAttribute("categories", recipeService.getCategoryService().getCategories());
             return "recipes/form";
         }
     }
@@ -49,15 +50,18 @@ public class RecipeController {
         Optional<Recipe> optionalRecipe = recipeService.getById(id);
         //TODO handle if optional is empty
         optionalRecipe.ifPresent(recipe -> model.addAttribute("recipe", recipe));
+        model.addAttribute("categories", recipeService.getCategoryService().getCategories());
         return "recipes/form";
     }
 
     @PostMapping("/update/{id}")
-    public String upgrade(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult) {
+    public String upgrade(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
+            System.out.println(recipe.getCategoryId());
             recipeService.update(recipe);
             return "redirect:/recipes";
         } else {
+            model.addAttribute("categories", recipeService.getCategoryService().getCategories());
             return "recipes/form";
         }
     }

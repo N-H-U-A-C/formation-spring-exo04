@@ -10,7 +10,6 @@
 <main class="container">
     <h1>Add a recipe</h1>
     <!--si id existant -> url update, sinon -> url save -->
-<!--    <form th:action="@{/recipes/save}"-->
     <form th:action="${recipe.getId()} == null ? @{/recipes/save} : @{/recipes/update/{id}(id=${recipe.getId()})}"
           method="post" th:object="${recipe}">
         <input th:field="*{id}" hidden>
@@ -20,10 +19,24 @@
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         </div>
         <div class="mb-3">
+            <label class="form-label" for="ingredients">Recipe ingredients</label>
+            <input class="form-control" type="text" id="ingredients" th:field="*{ingredients}">
+            <span th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></span>
+        </div>
+        <div class="mb-3">
             <label class="form-label" for="instruction">Recipe instruction</label>
             <input class="form-control" type="text" id="instruction" th:field="*{instruction}">
             <span th:if="${#fields.hasErrors('instruction')}" th:errors="*{instruction}"></span>
         </div>
+
+        <select class="form-select mb-3" aria-label="Default select example" id="category" th:field="*{categoryId}">
+            <option th:value="null" selected>Category</option>
+            <option th:each="category : ${categories}"
+                th:value="${category.getId()}"
+                th:text="${category.getName()}"></option>
+        </select>
+        <span th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></span>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </main>
